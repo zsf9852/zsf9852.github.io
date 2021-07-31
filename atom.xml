@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Luckey</title>
+  <title>张君韵</title>
   
-  <subtitle>Luckeyの博客</subtitle>
+  <subtitle>张君韵の博客</subtitle>
   <link href="http://zsf9852.github.io/atom.xml" rel="self"/>
   
   <link href="http://zsf9852.github.io/"/>
@@ -10,7 +10,7 @@
   <id>http://zsf9852.github.io/</id>
   
   <author>
-    <name>Luckey</name>
+    <name>张君韵</name>
     
   </author>
   
