@@ -746,9 +746,9 @@
 <li>如果使用默认内部时钟（HSI），这一步可以略过；</li>
 </ul>
 <p>这里我都使用外部时钟：</p>
-<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/f0vXrV">https://imgtu.com/i/f0vXrV</a></p>
+<p><img src="https://z3.ax1x.com/2021/08/12/f0vXrV.png" alt="img"></p>
 <h4 id="配置GPIO"><a href="#配置GPIO" class="headerlink" title="配置GPIO"></a>配置GPIO</h4><p>配置一个普通的GPIO，一个定时触发的GPIO，一个配置为输出模式，用于连接模块的Trig引脚，触发一次测距，这里我配置为PA0，另一个配置为输入模式（浮空），用于连接模块的Echo引脚，接收echo信号，这里我配置为PA1。</p>
-<p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812165231312.png" alt="image-20210812165231312"></p>
+<p><img src="https://z3.ax1x.com/2021/08/12/f0xeaD.png"></p>
 <h4 id="配置通用定时器TIM2"><a href="#配置通用定时器TIM2" class="headerlink" title="配置通用定时器TIM2"></a>配置通用定时器TIM2</h4><blockquote>
 <p>知识小卡片——STM32L431的定时器</p>
 </blockquote>
@@ -777,16 +777,15 @@
 <p>知识小卡片结束啦~</p>
 </blockquote>
 <p>接下来开始配置TIM2，首先选择<code>TIM2</code>，我们的目的是<strong>每1us计数一次</strong> ，所以定时器的频率需要在<strong>1Mhz</strong>， 时钟源选择内部时钟：</p>
-<p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812165801620.png" alt="image-20210812165801620"></p>
+<p><img src="https://z3.ax1x.com/2021/08/12/f0xMRA.png"></p>
 <p>接下来是对TIM2的参数设置，参照数据手册中的RCC时钟树，TIM2内部时钟来源是<code>PCLK1 = 72Mhz</code>，，所以预分频系数设置为<code>72</code>，即可得到1Mhz的计数频率。计数周期设为<code>不变</code></p>
-<p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812165934604.png" alt="image-20210812165934604"></p>
+<p><img src="https://z3.ax1x.com/2021/08/12/f0x1Mt.png" alt="image-20210812165934604"></p>
 <h4 id="配置串口"><a href="#配置串口" class="headerlink" title="配置串口"></a>配置串口</h4><p>开发板板载了一个CH340换串口，连接到USART1。</p>
 <p>接下来开始配置<code>USART1</code>：</p>
 <p><img src="https://img-blog.csdnimg.cn/20200726093117174.png" alt="img"></p>
 <h4 id="配置时钟树"><a href="#配置时钟树" class="headerlink" title="配置时钟树"></a>配置时钟树</h4><p>STM32F103RB的最高主频到72M，所以配置PLL，最后使<code>HCLK = 72Mhz</code>即可：</p>
-<p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812170019254.png" alt="image-20210812170019254"></p>
-<h4 id="生成工程设置"><a href="#生成工程设置" class="headerlink" title="生成工程设置"></a>生成工程设置</h4><p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812170152364.png" alt="image-20210812170152364"></p>
-<p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812170129029.png" alt="image-20210812170129029"></p>
+<p><img src="https://z3.ax1x.com/2021/08/12/f0vo5Q.png"></p>
+<h4 id="生成工程设置"><a href="#生成工程设置" class="headerlink" title="生成工程设置"></a>生成工程设置</h4><p><img src="https://z3.ax1x.com/2021/08/12/f0XAr8.png" alt="image-20210812170152364"></p>
 <p>最后点击<code>GENERATE CODE</code>即可生成MDK-V5工程：</p>
 <h3 id="4-程序编写"><a href="#4-程序编写" class="headerlink" title="4.程序编写"></a>4.程序编写</h3><h4 id="1、先在usart-c文件中对printf进行重定向"><a href="#1、先在usart-c文件中对printf进行重定向" class="headerlink" title="1、先在usart.c文件中对printf进行重定向"></a>1、先在usart.c文件中对printf进行重定向</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/* USER CODE BEGIN 1 */</span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression">调用头文件</span></span>
