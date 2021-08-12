@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="放松一下, 张时锋 计算机 嵌入式软件 个人博客">
+    <meta name="keywords" content="超声波测距, 张时锋 计算机 嵌入式软件 个人博客">
     <meta name="description" content="本科 | 嵌入式软件工程师">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>放松一下 | 张君韵</title>
+    <title>超声波测距 | 张君韵</title>
 
     <link rel="icon" type="image/jpeg" href="https://s1.ax1x.com/2020/05/17/YR20js.jpg">
 
@@ -510,12 +510,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928013951.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928021129.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">放松一下</h1>
+                    <h1 class="description center-align post-title">超声波测距</h1>
                 </div>
             </div>
         </div>
@@ -634,12 +634,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/HAL/">
+                                <span class="chip bg-color">HAL</span>
+                            </a>
+                        
+                            <a href="/tags/STM32F103RBT6/">
+                                <span class="chip bg-color">STM32F103RBT6</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/STM32CubeMX/" class="post-category">
+                                STM32CubeMX
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -648,28 +665,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-08-10
+                    2021-08-12
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-07-31
+                    2021-08-12
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    6
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    4 分
                 </div>
                 
 
@@ -687,8 +704,139 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="影音资源共享"><a href="#影音资源共享" class="headerlink" title="影音资源共享"></a>影音资源共享</h1>
-<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;"><iframe src="//player.bilibili.com/player.html?aid=2979186&amp;cid=4667585&amp;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"></iframe></div>
+                <h3 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h3><h4 id="硬件准备"><a href="#硬件准备" class="headerlink" title="硬件准备"></a>硬件准备</h4><p>1、首先准备的是正点原子的ATK-NANO 的STM32F103RBT6的开发板</p>
+<p>2、超声波模块使用的是HC-SR04</p>
+<p>该模块的四个引脚说明如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">引脚名</th>
+<th align="left">引脚作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Vcc</td>
+<td align="left">5V供电（<strong>必须是5V</strong>）</td>
+</tr>
+<tr>
+<td align="left">Trig</td>
+<td align="left">触发控制信号输入</td>
+</tr>
+<tr>
+<td align="left">Echo</td>
+<td align="left">回响信号输出</td>
+</tr>
+<tr>
+<td align="left">Gnd</td>
+<td align="left">地</td>
+</tr>
+</tbody></table>
+<h3 id="2-工作原理"><a href="#2-工作原理" class="headerlink" title="2.工作原理"></a>2.工作原理</h3><h4 id="超声波模块测距原理"><a href="#超声波模块测距原理" class="headerlink" title="超声波模块测距原理"></a>超声波模块测距原理</h4><p>如图，超声波模块发出超声波信号，如果前方碰到障碍物，则被障碍物反射回来，模块收到回来的超声波后，即可计算出与障碍物的距离：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210512201033773.png#pic_CENTER" alt="img"></p>
+<h4 id="HR-SC04模块工作原理"><a href="#HR-SC04模块工作原理" class="headerlink" title="HR-SC04模块工作原理"></a>HR-SC04模块工作原理</h4><p>HR-SC04模块的时序图如下：</p>
+<p><img src="https://img-blog.csdnimg.cn/20210512201112447.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L01jdWxvdmVyNjY2,size_16,color_FFFFFF,t_70" alt="img"></p>
+<p>根据该时序图，可以看出一次测距的流程如下：</p>
+<ul>
+<li>触发信号由Trig引脚输入，<strong>10us的高电平即可触发一次测距</strong>；</li>
+<li>触发后，距离信息由Echo引脚输出，该输出信号的<strong>高电平时间与检测距离</strong>成比例；</li>
+</ul>
+<p>在整个测距过程中，<strong>最重要的是Echo引脚输出信号高电平的时间，可以使用STM32硬件定时器得到时长，这个时间为超声波从发射到接收的时长，由声速计算出传播距离，再取1/2，计算出当前距离障碍物的距离。</strong></p>
+<h3 id="3-CubeMX配置"><a href="#3-CubeMX配置" class="headerlink" title="3.CubeMX配置"></a>3.CubeMX配置</h3><h4 id="配置时钟源"><a href="#配置时钟源" class="headerlink" title="配置时钟源"></a>配置时钟源</h4><ul>
+<li>如果选择使用外部高速时钟（HSE），则需要在System Core中配置RCC；</li>
+<li>如果使用默认内部时钟（HSI），这一步可以略过；</li>
+</ul>
+<p>这里我都使用外部时钟：</p>
+<p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812165057136.png" alt="image-20210812165057136"></p>
+<h4 id="配置GPIO"><a href="#配置GPIO" class="headerlink" title="配置GPIO"></a>配置GPIO</h4><p>配置一个普通的GPIO，一个定时触发的GPIO，一个配置为输出模式，用于连接模块的Trig引脚，触发一次测距，这里我配置为PA0，另一个配置为输入模式（浮空），用于连接模块的Echo引脚，接收echo信号，这里我配置为PA1。</p>
+<p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812165231312.png" alt="image-20210812165231312"></p>
+<h4 id="配置通用定时器TIM2"><a href="#配置通用定时器TIM2" class="headerlink" title="配置通用定时器TIM2"></a>配置通用定时器TIM2</h4><blockquote>
+<p>知识小卡片——STM32L431的定时器</p>
+</blockquote>
+<p>STM32F103RBxx 系列有 1 个高级定时器（TIM1）, 3 个通用定时器（TIM2、TIM15、TIM16），两个基本定时器（TIM6、TIM7），还有两个低功耗定时器（LPTIM1、LPTIM2）。</p>
+<p>STM32F103RB 的通用 TIMx (TIM2、TIM15、TIM16)定时器功能包括：</p>
+<ul>
+<li>16 位(TIM15,TIM16)/32 位(TIM2)向上、向下、向上/向下自动装载计数器，注意：<br>TIM15、TIM16 只支持向上（递增）计数方式；</li>
+<li>16 位可编程(可以实时修改)预分频器，计数器时钟频率的分频系数为 1～65535 之间的任<br>意数值。</li>
+<li>4 个独立通道（TIMx_CH1~4， 其中 TIM15 最多 2 个通道， TIM16 最多 1 个<br>通道），这些通道可以用来作为：<ul>
+<li>输入捕获</li>
+<li>输出比较</li>
+<li>PWM 生成(边缘或中间对齐模式)</li>
+<li>单脉冲模式输出</li>
+</ul>
+</li>
+<li>可使用外部信号控制定时器和定时器互连的同步电路。</li>
+<li>如下事件发生时产生中断/DMA：<ul>
+<li>更新：计数器向上溢出/向下溢出，计数器初始化(通过软件或者内部/外部触发)</li>
+<li>触发事件(计数器启动、停止、初始化或者由内部/外部触发计数)</li>
+<li>输入捕获</li>
+<li>输出比较</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>知识小卡片结束啦~</p>
+</blockquote>
+<p>接下来开始配置TIM2，首先选择<code>TIM2</code>，我们的目的是<strong>每1us计数一次</strong> ，所以定时器的频率需要在<strong>1Mhz</strong>， 时钟源选择内部时钟：</p>
+<p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812165801620.png" alt="image-20210812165801620"></p>
+<p>接下来是对TIM2的参数设置，参照数据手册中的RCC时钟树，TIM2内部时钟来源是<code>PCLK1 = 72Mhz</code>，，所以预分频系数设置为<code>72</code>，即可得到1Mhz的计数频率。计数周期设为<code>不变</code></p>
+<p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812165934604.png" alt="image-20210812165934604"></p>
+<h4 id="配置串口"><a href="#配置串口" class="headerlink" title="配置串口"></a>配置串口</h4><p>开发板板载了一个CH340换串口，连接到USART1。</p>
+<p>接下来开始配置<code>USART1</code>：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200726093117174.png" alt="img"></p>
+<h4 id="配置时钟树"><a href="#配置时钟树" class="headerlink" title="配置时钟树"></a>配置时钟树</h4><p>STM32F103RB的最高主频到72M，所以配置PLL，最后使<code>HCLK = 72Mhz</code>即可：</p>
+<p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812170019254.png" alt="image-20210812170019254"></p>
+<h4 id="生成工程设置"><a href="#生成工程设置" class="headerlink" title="生成工程设置"></a>生成工程设置</h4><p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812170152364.png" alt="image-20210812170152364"></p>
+<p><img src="C:\Users\86191\AppData\Roaming\Typora\typora-user-images\image-20210812170129029.png" alt="image-20210812170129029"></p>
+<p>最后点击<code>GENERATE CODE</code>即可生成MDK-V5工程：</p>
+<h3 id="4-程序编写"><a href="#4-程序编写" class="headerlink" title="4.程序编写"></a>4.程序编写</h3><h4 id="1、先在usart-c文件中对printf进行重定向"><a href="#1、先在usart-c文件中对printf进行重定向" class="headerlink" title="1、先在usart.c文件中对printf进行重定向"></a>1、先在usart.c文件中对printf进行重定向</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token comment">/* USER CODE BEGIN 1 */</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">if</span> <span class="token expression">调用头文件</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+
+<span class="token keyword">int</span> <span class="token function">fputc</span><span class="token punctuation">(</span><span class="token keyword">int</span> ch<span class="token punctuation">,</span> FILE <span class="token operator">*</span>stream<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment">/* 堵塞判断串口是否发送完成 */</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token punctuation">(</span>USART1<span class="token operator">-&gt;</span>SR <span class="token operator">&amp;</span> UART_FLAG_TXE<span class="token punctuation">)</span> <span class="token operator">==</span> RESET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/* 串口发送完成，将该字符发送 */</span>
+    USART1<span class="token operator">-&gt;</span>DR <span class="token operator">=</span> <span class="token punctuation">(</span>uint8_t<span class="token punctuation">)</span> ch<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> ch<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+<span class="token comment">/* USER CODE END 1 */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="2、重新定义延时US级延时"><a href="#2、重新定义延时US级延时" class="headerlink" title="2、重新定义延时US级延时"></a>2、重新定义延时US级延时</h4><pre class="line-numbers language-none"><code class="language-none">void delayus(uint32_t nus)
+{
+		uint32_t i,j;
+		for(i=0;i&lt;nus;i++)
+    {
+			for(j=0;j&lt;72;j++);
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="3、驱动编写"><a href="#3、驱动编写" class="headerlink" title="3、驱动编写"></a>3、驱动编写</h4><pre class="line-numbers language-none"><code class="language-none">void StartTrig(void)
+{
+	HAL_GPIO_WritePin(Trig_GPIO_Port, Trig_Pin, GPIO_PIN_SET);
+	delayus(10);
+	HAL_GPIO_WritePin(Trig_GPIO_Port, Trig_Pin, GPIO_PIN_RESET);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="4、距离测量（main中的while中）"><a href="#4、距离测量（main中的while中）" class="headerlink" title="4、距离测量（main中的while中）"></a>4、距离测量（main中的while中）</h4><pre class="line-numbers language-c" data-language="c"><code class="language-c">定义测量的距离变量
+<span class="token comment">/* USER CODE BEGIN PV */</span>
+uint32_t Count<span class="token punctuation">;</span>
+<span class="token keyword">double</span> Distance<span class="token punctuation">;</span>
+<span class="token comment">/* USER CODE END PV */</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token function">StartTrig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//发送一个电平</span>
+<span class="token function">__HAL_TIM_SET_COUNTER</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>htim2<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//在运行时设置TIM计数器寄存器的值。</span>
+<span class="token function">HAL_TIM_IC_Start</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>htim2<span class="token punctuation">,</span> TIM_CHANNEL_2<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//开始TIM输入捕获测量</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span><span class="token function">HAL_TIM_IC_GetState</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>htim2<span class="token punctuation">)</span><span class="token operator">!=</span>HAL_TIM_STATE_READY<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//返回TIM输入捕获</span>
+Count <span class="token operator">=</span> <span class="token function">HAL_TIM_ReadCapturedValue</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>htim2<span class="token punctuation">,</span> TIM_CHANNEL_2<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//从捕获比较单元读取捕获的值所需要的时间</span>
+Distance <span class="token operator">=</span> Count<span class="token operator">*</span><span class="token number">0.0001</span><span class="token operator">*</span><span class="token number">330</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Count = 0x%x\r\n"</span><span class="token punctuation">,</span>Count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Distance = %3.3fcm\r\n"</span><span class="token punctuation">,</span>Distance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">HAL_Delay</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
@@ -715,7 +863,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zsf9852.github.io/List/index.html">http://zsf9852.github.io/List/index.html</a>
+                    <a href="http://zsf9852.github.io/posts/hal01.html">http://zsf9852.github.io/posts/hal01.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -752,7 +900,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/HAL/">
+                                    <span class="chip bg-color">HAL</span>
+                                </a>
+                            
+                                <a href="/tags/STM32F103RBT6/">
+                                    <span class="chip bg-color">STM32F103RBT6</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1227,34 +1383,50 @@ new Valine({
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/List/index.html">
+                <a href="/posts/hal01.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928013951.jpg" class="responsive-img" alt="放松一下">
+                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928021129.jpg" class="responsive-img" alt="超声波测距">
                         
-                        <span class="card-title">放松一下</span>
+                        <span class="card-title">超声波测距</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            串口显示运用硬件定时器触发HC-SR04测量距离 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-08-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-12
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            张君韵
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/STM32CubeMX/" class="post-category">
+                                    STM32CubeMX
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/HAL/">
+                        <span class="chip bg-color">HAL</span>
+                    </a>
+                    
+                    <a href="/tags/STM32F103RBT6/">
+                        <span class="chip bg-color">STM32F103RBT6</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -1262,37 +1434,52 @@ new Valine({
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/List/index.html">
+                <a href="/posts/4b3510a4.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928013951.jpg" class="responsive-img" alt="放松一下">
+                        <img src="https://cdn.jsdelivr.net/gh/LuckyZmj/imgbed@master/posts/20200928020120.jpg" class="responsive-img" alt="文字背景粒子特效">
                         
-                        <span class="card-title">放松一下</span>
+                        <span class="card-title">文字背景粒子特效</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            一款jQuery+CSS3的文字背景粒子动画特效，一共6种粒子效果，每种文字背景的粒子效果都不同，有漂浮的有坠落的等等。 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-08-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-27
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            张君韵
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%89%8D%E7%AB%AF%E7%AF%87/" class="post-category">
+                                    前端篇
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/jQuery-CSS3/">
+                        <span class="chip bg-color">jQuery+CSS3</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%B2%92%E5%AD%90%E7%89%B9%E6%95%88/">
+                        <span class="chip bg-color">粒子特效</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
